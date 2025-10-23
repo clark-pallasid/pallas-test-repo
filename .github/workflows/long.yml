@@ -1,0 +1,23 @@
+name: Long Running Test Workflow
+
+on:
+  workflow_dispatch:  # allows manual triggering
+  push:
+    branches:
+      - main
+
+jobs:
+  long-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Simulate long-running task
+        run: |
+          echo "Starting long running test..."
+          for i in {1..30}; do
+            echo "Minute $i: still running..."
+            sleep 60  # sleep 1 minute per iteration
+          done
+          echo "Done after 30 minutes!"
